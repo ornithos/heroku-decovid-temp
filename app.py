@@ -5,7 +5,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objects as go # graph objects
-import plotly.express as px 
+import plotly.express as px
 
 # imports for dash construction
 import pydecovid
@@ -15,17 +15,15 @@ from pydecovid.queries import qry_table1
 
 # --------- "GLOBALS" -------------------------------------------------
 main_text_style = {'text-align': 'center', 'max-width': '800px', 'margin':'auto'}
-main_div_style = {'margin':'auto', 'padding-left': '100px', 'padding-right':'100px', 
+main_div_style = {'margin':'auto', 'padding-left': '100px', 'padding-right':'100px',
                   'padding-top':'20px'}
 
 
 # --------- DATA ------------------------------------------------------
 
 # Load Achilles Results
-dir_data = './data'
-file_achilles_res = os.path.join(dir_data, 'achilles_results.feather')
-assert os.path.isfile(file_achilles_res), f"File {file_achilles_res:s} not found."
-ach_res = pd.read_feather(file_achilles_res)
+# ach_res = pd.read_feather(file_achilles_res)
+ach_res = pd.read_csv('https://srv-file18.gofile.io/download/ONDJ6G/achilles_results.csv')
 
 # Perform specific transformations for Table 1
 tbl_one = qry_table1.query(ach_res)
@@ -80,8 +78,8 @@ introduction = '''
 
 Welcome to the dummy landing page! See the dashboard [GUIDE-(TO-DO)](deadlink) if it's your first time here.
 
-Data are from {:d} patients, pulled from the [SYNPUF](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF) 
-[(1k subset)](http://www.ltscomputingllc.com/downloads/). All numbers (including the previous one) are 
+Data are from {:d} patients, pulled from the [SYNPUF](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF)
+[(1k subset)](http://www.ltscomputingllc.com/downloads/). All numbers (including the previous one) are
 dynamic and pulled from an OMOP standard database schema. The dashboard is currently set up to process
 the results of the [Achilles](https://github.com/OHDSI/Achilles) tool which creates an OLAP-style results
 table. This results table is joined to the Concept table containing the default vocabularies suggested by
@@ -100,8 +98,8 @@ app.layout = html.Div(children=[
     html.Div([
 
         # column 1
-        html.Div(generate_table(tbl_one.iloc[:24, :], title_rows[:24]), 
-            className="four columns", style={'height': '500px', 'vertical-align':'middle', 
+        html.Div(generate_table(tbl_one.iloc[:24, :], title_rows[:24]),
+            className="four columns", style={'height': '500px', 'vertical-align':'middle',
               'display': 'flex', 'justify-content': 'center', 'align-items': 'center'}),
         # html.Div(generate_table(tbl_one.iloc[24:, :], title_rows[24:]), className="four columns")
 
@@ -109,12 +107,12 @@ app.layout = html.Div(children=[
         html.Div([
             dcc.Graph(
                 id='example-graph',
-                figure=fig_age, 
+                figure=fig_age,
                 className="row", style={'height': '250px', 'margin': '0px'}
             ),
             dcc.Graph(
                 id='example-graph2',
-                figure=fig_gender, 
+                figure=fig_gender,
                 className="row", style={'height': '250px', 'margin': '0px'}
             )
         ], className="eight columns")

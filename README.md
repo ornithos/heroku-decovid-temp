@@ -1,10 +1,8 @@
-# decovid-stats-AWDG
+# heroku upload of sketch OMOP dashboard
 
-The goal of this work is to create summary statistics and visualisations (possibly interactive) that serves as a useful first view of the DECOVID data in the safe haven. This will include:
+We want more flexibility than [AchillesWeb](https://github.com/OHDSI/AchillesWeb/) can provide. This is an experiment using `Dash` to create a dashboard from the outputs of the [Achilles](https://github.com/OHDSI/Achilles/) tools.
 
-* Defining the standard data queries.
-* Implementing the queries within [ACHILLES](https://github.com/OHDSI/Achilles/).
-* Creating some bespoke dashboards (most likely in `dash`).
-* Productionisation of the above.
+This is a copy of the `decovid-ADWG-stats` repository to experiment with heroku hosting. I don't want to pollute the original repository with these details for the time being.
+
 
 

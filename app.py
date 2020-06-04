@@ -1,6 +1,10 @@
 import pandas as pd
 import os, sys
 
+import requests, io
+import pyarrow as pa
+import pyarrow.feather as feather
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -16,14 +20,18 @@ from pydecovid.queries import qry_table1
 # --------- "GLOBALS" -------------------------------------------------
 main_text_style = {'text-align': 'center', 'max-width': '800px', 'margin':'auto'}
 main_div_style = {'margin':'auto', 'padding-left': '100px', 'padding-right':'100px',
-                  'padding-top':'20px'}
+                  'padding-top':'20px', 'max-width': '1100px'}
 
 
 # --------- DATA ------------------------------------------------------
 
 # Load Achilles Results
 # ach_res = pd.read_feather(file_achilles_res)
-ach_res = pd.read_csv('https://srv-file18.gofile.io/download/ONDJ6G/achilles_results.csv')
+# ach_res = pd.read_csv('https://srv-file18.gofile.io/download/ONDJ6G/achilles_results.csv')
+
+s=requests.get("https://srv-file12.gofile.io/download/bv0kA7/achilles_results.feather").content
+reader = pa.BufferReader(s)
+ach_res = feather.read_feather(reader)
 
 # Perform specific transformations for Table 1
 tbl_one = qry_table1.query(ach_res)

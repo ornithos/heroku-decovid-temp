@@ -30,8 +30,16 @@ main_div_style = {'margin':'auto', 'padding-left': '100px', 'padding-right':'100
 # ach_res = pd.read_csv('https://srv-file18.gofile.io/download/ONDJ6G/achilles_results.csv')
 
 s=requests.get("https://srv-file12.gofile.io/download/bv0kA7/achilles_results.feather").content
+print("Feather file downloaded from gofile:")
+print(type(s))
+print(s[:10])
+print(len(s))
 reader = pa.BufferReader(s)
+print("The reader is:")
+print(reader)
+print("feather is trying to read now...")
 ach_res = feather.read_feather(reader)
+print("success")
 
 # Perform specific transformations for Table 1
 tbl_one = qry_table1.query(ach_res)
